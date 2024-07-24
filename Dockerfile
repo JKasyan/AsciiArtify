@@ -17,9 +17,10 @@ COPY <<EOF main.go
       http.ListenAndServe(":8000", nil)
     }
 EOF
-RUN go build -o ./hello ./main.go
+COPY go.mod .
+RUN CGO_ENABLED=0 go build -o app
 
 FROM scratch
-COPY --from=stage /src/hello .
-CMD ["./hello"]
+COPY --from=stage /src/app .
+CMD ["/app"]
 EXPOSE 8000
