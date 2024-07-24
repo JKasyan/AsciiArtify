@@ -1,0 +1,9 @@
+#minikube
+
+minikube start
+alias mk="minikube kubectl --"
+mk get po -A
+mk create deploy asciiartify --image ekasyan/asciiartify:v1.0.0
+mk get pod -o wide
+mk get events
+mk delete deploy asciiartify
