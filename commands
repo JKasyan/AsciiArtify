@@ -1,12 +1,36 @@
-#minikube
-
 git tag -a v1.0.2 -m v1.0.2
 git push origin tag v1.0.2
 
+#minikube
 minikube start
 alias mk="minikube kubectl --"
 mk get po -A
-mk create deploy asciiartify --image ekasyan/asciiartify:v1.0.0
+mk create deploy asciiartify --image ekasyan/asciiartify:v1.0.2
 mk get pod -o wide
 mk get events
+mk port-forward deploy/asciiartify 8000
 mk delete deploy asciiartify
+
+
+#kind
+kind get clusters
+kind create cluster --name ascii-artify --config=kind_config.yml
+docker ps
+kind get kubeconfig --name ascii-artify > kub_kind.config
+alias k="kubectl --kubeconfig $HOME/prometheus/kub_kind.config"
+k apply -f ascii-artify-deployment.yml
+kubectl get nodes -o wide
+curl http://localhost:30950/hello
+kind delete cluster --name ascii-artify
+docker pull ekasyan/asciiartify:v1.0.2
+kind load docker-image ekasyan/asciiartify:v1.0.2 --name ascii-artify
+docker exec -it b7d4593579a3 crictl images
+kubectl get nodes -o wide
+
+
+#k3d
+k3d cluster create mycluster -p "8000:30080@agent:0" --agents 1
+kubectl create deployment ascii-artify --image=ekasyan/asciiartify:v1.0.2 --port=8000
+kubectl apply -f thatfile.yaml
+curl http://localhost:8000/hello
+k3d cluster delete mycluster

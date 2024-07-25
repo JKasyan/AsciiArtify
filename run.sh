@@ -10,4 +10,4 @@ echo "tag -- $TAG"
 echo "version -- $VERSION"
 
 docker build -t $TAG .
-#docker push $TAG
+docker push $TAG
