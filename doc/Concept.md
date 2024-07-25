@@ -93,13 +93,13 @@ including HA setups</li>
 ## Demo
 
 **minikube**
-![Image](data/minikube.gif)
+![Image](../data/minikube.gif)
 
 **kind**
-![Image](data/kind.gif)
+![Image](../data/kind.gif)
 
 **k3d**
-![Image](data/minikube.gif)
+![Image](../data/minikube.gif)
 
 ## Conclusion
 
