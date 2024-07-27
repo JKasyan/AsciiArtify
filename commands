@@ -37,12 +37,15 @@ k3d cluster delete mycluster
 
 #argoCD
 alias k=k_local
+k3d cluster create argo
+
+k get all -A
 k create namespace argocd
 k apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 k config set-context --current --namespace=argocd
 k patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 k -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-k port-forward svc/argocd-server -n argocd 8080:443
+k port-forward svc/argocd-server -n argocd 8080:80
 
 
 k port-forward -n demo svc/ambassador 8088:80
