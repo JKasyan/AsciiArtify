@@ -1,3 +1,3 @@
 # AgroCD demo
 
-![Image](../data/simplescreenrecorder-2024-07-27_17.39.36.mkv)
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=nv9DjFaSjGs&ab_channel=EvgenKasyan">
