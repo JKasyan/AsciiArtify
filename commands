@@ -35,10 +35,19 @@ kubectl apply -f thatfile.yaml
 curl http://localhost:8000/hello
 k3d cluster delete mycluster
 
-#agroCd
+#argoCD
 alias k=k_local
 k create namespace argocd
 k apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 k config set-context --current --namespace=argocd
 k patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+k -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 k port-forward svc/argocd-server -n argocd 8080:443
+
+
+k port-forward -n demo svc/ambassador 8088:80
+wget -O /tmp/img.jpg https://avatars.githubusercontent.com/u/8873156?v=4
+curl -F 'image=@/tmp/img.jpg' localhost:8088/img/
+
+k delete pods --all -n argocd
+k delete namespace argocd
