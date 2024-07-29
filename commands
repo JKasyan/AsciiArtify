@@ -36,13 +36,13 @@ curl http://localhost:8000/hello
 k3d cluster delete mycluster
 
 #argoCD
-alias k=k_local
+alias k=kubectl
 k3d cluster create argo
 
 k get all -A
 k create namespace argocd
-k apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 k config set-context --current --namespace=argocd
+k apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 k patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 k -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 k port-forward svc/argocd-server -n argocd 8080:80
@@ -50,7 +50,7 @@ k port-forward svc/argocd-server -n argocd 8080:80
 
 k port-forward -n demo svc/ambassador 8088:80
 wget -O /tmp/img.jpg https://avatars.githubusercontent.com/u/8873156?v=4
-curl -F 'image=@/tmp/img.jpg' localhost:8088/img/
+curl -F 'image=@/tmp/me.jpg' localhost:8088/img/
 
 k delete pods --all -n argocd
 k delete namespace argocd

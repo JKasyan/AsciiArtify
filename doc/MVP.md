@@ -1,3 +1,3 @@
 # ArgoCD MVP
 
-[Please check MVP on video](https://youtu.be/w0YmpQiZ3A0)
+[Please check MVP on video](https://youtu.be/EAcGJrIqjZE)
